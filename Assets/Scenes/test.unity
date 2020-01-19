@@ -1137,7 +1137,7 @@ PrefabInstance:
     - target: {fileID: 6171912783414325249, guid: 7662dc789cb112d4491fc7a564f4b9b1,
         type: 3}
       propertyPath: turnSlowDown
-      value: 0.95
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 6171912783414325249, guid: 7662dc789cb112d4491fc7a564f4b9b1,
         type: 3}
@@ -1157,12 +1157,12 @@ PrefabInstance:
     - target: {fileID: 6171912783414325249, guid: 7662dc789cb112d4491fc7a564f4b9b1,
         type: 3}
       propertyPath: turnMaxSpeed
-      value: 1.5
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 6171912783414325249, guid: 7662dc789cb112d4491fc7a564f4b9b1,
         type: 3}
       propertyPath: turnAcceleration
-      value: 150
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 6171912783414325250, guid: 7662dc789cb112d4491fc7a564f4b9b1,
         type: 3}
