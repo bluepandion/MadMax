@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Collections;
 using TMPro;
-using UnityEngine.Events;
 
 public class MouseHover : MonoBehaviour {
     public TextMeshProUGUI textCorlor;
