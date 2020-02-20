@@ -21,4 +21,10 @@ public class MouseHover : MonoBehaviour {
         Debug.Log("Mouse Exit");
     }
 
+    public void OnMouseDown()
+    {
+        Debug.Log("Mouse Click");
+        gameObject.SetActive(false);
+    }
+
 }
