@@ -595,6 +595,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80e2762270ac84c3c989bd2f21b334cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 0}
   menuObj: {fileID: 476205915090459892}
   menuActive: 1
