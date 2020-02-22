@@ -7,8 +7,10 @@ public class CarCharacterController : MonoBehaviour
     public float acceleration = 8.0f;
     public float maxSpeed = 40.0f;
     public float turnAcceleration = 250.0f;
-    public float turnMaxSpeed = 0.8f;
-    public float turnSlowDown = 0.1f;
+    public float turnMaxSpeed = 360f;    
+    public float turnSlowDown = 10f;
+    public float turnFriction = 0.8f;
+    public float airControl = 0.2f;
     public float gravity = 9.81f;
     
     public float springDamper = 2.0f;
@@ -20,8 +22,6 @@ public class CarCharacterController : MonoBehaviour
     
     private CharacterController cc;
     
-    private float defaultDrag = 3.0f;
-
     private Transform model;
     private Transform wheelFR;
     private Transform wheelFL;
@@ -29,8 +29,8 @@ public class CarCharacterController : MonoBehaviour
     private Transform wheelRL;
 
     private Vector3 velocity;
+    private float turnTorque;
     
-
     //private float wheelRadius = 1.0f;
 
     private Transform body;
@@ -82,34 +82,40 @@ public class CarCharacterController : MonoBehaviour
     }
     
     void Update()
-    {           
+    {                           
         float turn = Input.GetAxis("Horizontal");
         float breaks = Input.GetAxis("Vertical");                        
-        
-        RaycastHit hitGround;
+                
         float onGround = 0.0f;
         if (cc.isGrounded) {
-            onGround = 1.0f;
+            onGround = 1.0f;            
         }
-        /*
-        Vector3 p = new Vector3(0f, -.1f, 0f);
-        if (Physics.Raycast(transform.position + transform.up * 0.1f,
-            transform.up * -1f, 
+        
+        Vector3 groundNormal;        
+        RaycastHit hitGround;
+        Vector3 p = new Vector3(0f, -.25f, 0f);
+        if (Physics.Raycast(body.transform.position,
+            transform.up * -.25f, 
             out hitGround, 1.0f, 
             layerMask)) 
         {
-            onGround = 1.0f;
+            groundNormal = hitGround.normal;            
+            transform.up -= (transform.up - hitGround.normal) * 0.1f;            
+        } else {
+            transform.up -= (transform.up - new Vector3(0f, 1f, 0f)) * 0.1f;            
         }
-        */
-
+        
                                
         //
         // Steering
-        //
+        //        
+        turnTorque *= Mathf.Clamp(1.0f - turnSlowDown * Time.deltaTime, 0f, 1f);
         float turnV = turn * turnAcceleration * Time.deltaTime;
-        //turnV *= onGround;
+        turnV *= (airControl + onGround * (1f - airControl));
+        turnTorque += turnV;
+        turnTorque = Mathf.Clamp(turnTorque, -turnMaxSpeed, turnMaxSpeed);
+        body.transform.Rotate(0f, turnTorque * Time.deltaTime, 0f);
 
-        transform.Rotate(0f, turnV, 0f);
         //
         // Force car steering if speed drops below a certain amount
         // This is in case the car gets stuck
@@ -119,23 +125,34 @@ public class CarCharacterController : MonoBehaviour
         // Faked acceleration damping caused by turning
         //
         
-        float turnSpeedMultiplier = 1.0f;
-        //    1.0f - (rb.angularVelocity.magnitude / turnMaxSpeed) * turnSlowDown;
+        float turnSpeedMultiplier = 1.0f - (Mathf.Abs(turnTorque) / turnMaxSpeed) * turnFriction;
         
         //
         // Engine acceleration
         //
         
-        float a = acceleration * onGround * turnSpeedMultiplier; //* rb.mass
-        Vector3 accelerationVector = transform.forward * a;
-        accelerationVector.y -= gravity * Time.deltaTime;
+        velocity.x *= Mathf.Clamp(1f - (1f - onGround) * .5f * Time.deltaTime, 0f, 1f);
+        velocity.z *= Mathf.Clamp(1f - (1f - onGround) * .5f * Time.deltaTime, 0f, 1f);
 
-        velocity += accelerationVector;
-        if (velocity.magnitude > maxSpeed) {
-            velocity *= (maxSpeed / velocity.magnitude);
+        Vector3 hVelocity;
+        hVelocity.x = velocity.x;        
+        hVelocity.y = 0f;
+        hVelocity.z = velocity.z;
+        if (hVelocity.magnitude > maxSpeed) {
+            hVelocity *= (maxSpeed / hVelocity.magnitude);
         }
+        velocity.x = hVelocity.x;
+        velocity.z = hVelocity.z;
+
+        float a = acceleration * onGround * turnSpeedMultiplier; //* rb.mass        
+        Vector3 accelerationVector = body.transform.forward * a;                        
+        accelerationVector.y -= gravity;
+
+        velocity += accelerationVector * Time.deltaTime;
+        
 
         cc.Move(velocity * Time.deltaTime);
+        velocity = cc.velocity;
 
 
         //rb.AddForce(accelerationVector, ForceMode.Acceleration);                        
@@ -153,7 +170,8 @@ public class CarCharacterController : MonoBehaviour
                         
         if (debugText) {
             debugText.text = 
-            velocity.magnitude.ToString();            
+            body.transform.forward.ToString() +
+            "\n" + cc.velocity.ToString();
                 /*
                 rb.velocity.magnitude.ToString() + 
                 "\n" + rb.drag.ToString() +
