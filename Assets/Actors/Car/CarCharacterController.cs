@@ -88,7 +88,8 @@ public class CarCharacterController : MonoBehaviour
                 
         float onGround = 0.0f;
         if (cc.isGrounded) {
-            onGround = 1.0f;            
+            onGround = 1.0f;
+            velocity.y = 0f;
         }
         
         Vector3 groundNormal;        
@@ -96,13 +97,16 @@ public class CarCharacterController : MonoBehaviour
         Vector3 p = new Vector3(0f, -.25f, 0f);
         if (Physics.Raycast(body.transform.position,
             transform.up * -.25f, 
-            out hitGround, 1.0f, 
+            out hitGround, 
+            0.4f, 
             layerMask)) 
         {
             groundNormal = hitGround.normal;            
-            transform.up -= (transform.up - hitGround.normal) * 0.1f;            
+            transform.up -= (transform.up - hitGround.normal) * 0.1f;
+            onGround = 1.0f;
         } else {
             transform.up -= (transform.up - new Vector3(0f, 1f, 0f)) * 0.1f;            
+            onGround = 0.0f;
         }
         
                                
@@ -134,6 +138,9 @@ public class CarCharacterController : MonoBehaviour
         velocity.x *= Mathf.Clamp(1f - (1f - onGround) * .5f * Time.deltaTime, 0f, 1f);
         velocity.z *= Mathf.Clamp(1f - (1f - onGround) * .5f * Time.deltaTime, 0f, 1f);
 
+        velocity.x *= Mathf.Clamp(1f - (onGround) * 1f * Time.deltaTime, 0f, 1f);
+        velocity.z *= Mathf.Clamp(1f - (onGround) * 1f * Time.deltaTime, 0f, 1f);
+
         Vector3 hVelocity;
         hVelocity.x = velocity.x;        
         hVelocity.y = 0f;
@@ -150,9 +157,11 @@ public class CarCharacterController : MonoBehaviour
 
         velocity += accelerationVector * Time.deltaTime;
         
-
         cc.Move(velocity * Time.deltaTime);
-        velocity = cc.velocity;
+        //velocity = cc.velocity;
+        //velocity.y -= (velocity.y - cc.velocity.y) * 0.2f;
+        velocity.x -= (velocity.x - cc.velocity.x) * 0.1f;
+        velocity.z -= (velocity.z - cc.velocity.z) * 0.1f;
 
 
         //rb.AddForce(accelerationVector, ForceMode.Acceleration);                        
@@ -170,8 +179,10 @@ public class CarCharacterController : MonoBehaviour
                         
         if (debugText) {
             debugText.text = 
-            body.transform.forward.ToString() +
-            "\n" + cc.velocity.ToString();
+            " vector      " + body.transform.forward.ToString() +
+            "\n velocity    " + velocity.ToString() +
+            "\n cc velocity " + cc.velocity.ToString() +
+            "\n grounded    " + onGround.ToString();
                 /*
                 rb.velocity.magnitude.ToString() + 
                 "\n" + rb.drag.ToString() +
