@@ -14,7 +14,9 @@ public class CarCharacterController : MonoBehaviour
     public float gravity = 9.81f;
     
     public float springDamper = 2.0f;
-    
+
+    public Transform gun;
+    private PlayerGun gunComponent;
 
     public UnityEngine.UI.Text debugText;
     
@@ -38,7 +40,17 @@ public class CarCharacterController : MonoBehaviour
     void Start()
     {
         cc = GetComponent<CharacterController>();                
-        //InitWheels();
+        
+        if (gun)
+        {
+            gunComponent = gun.GetComponent<PlayerGun>();
+            if (!gunComponent)
+            {
+                Debug.Log("Gun doesn't have a PlayerGun component");
+            }
+        } else {
+            Debug.Log("Gun not found");
+        }
                 
         body = transform.Find("Body");
         if (!body) {
@@ -83,9 +95,22 @@ public class CarCharacterController : MonoBehaviour
     
     void Update()
     {                           
+        HandlePhysics();
+        HandleShooting();        
+    }
+
+    private void HandleShooting() {
+        float shoot = Input.GetAxis("Fire1");
+        if (shoot > 0f) 
+        {
+            gunComponent.Shoot(gun.rotation);
+        }
+    }
+
+    private void HandlePhysics() {
         float turn = Input.GetAxis("Horizontal");
-        float breaks = Input.GetAxis("Vertical");                        
-                
+        float breaks = Input.GetAxis("Vertical");
+        
         float onGround = 0.0f;
         if (cc.isGrounded) {
             onGround = 1.0f;
@@ -108,8 +133,7 @@ public class CarCharacterController : MonoBehaviour
             transform.up -= (transform.up - new Vector3(0f, 1f, 0f)) * 0.1f;            
             onGround = 0.0f;
         }
-        
-                               
+                                       
         //
         // Steering
         //        
@@ -119,28 +143,19 @@ public class CarCharacterController : MonoBehaviour
         turnTorque += turnV;
         turnTorque = Mathf.Clamp(turnTorque, -turnMaxSpeed, turnMaxSpeed);
         body.transform.Rotate(0f, turnTorque * Time.deltaTime, 0f);
-
+                
         //
-        // Force car steering if speed drops below a certain amount
-        // This is in case the car gets stuck
-        //
-
-        //
-        // Faked acceleration damping caused by turning
-        //
-        
-        float turnSpeedMultiplier = 1.0f - (Mathf.Abs(turnTorque) / turnMaxSpeed) * turnFriction;
-        
-        //
-        // Engine acceleration
-        //
-        
+        // Friction 
+        //        
         velocity.x *= Mathf.Clamp(1f - (1f - onGround) * .5f * Time.deltaTime, 0f, 1f);
         velocity.z *= Mathf.Clamp(1f - (1f - onGround) * .5f * Time.deltaTime, 0f, 1f);
 
         velocity.x *= Mathf.Clamp(1f - (onGround) * 1f * Time.deltaTime, 0f, 1f);
         velocity.z *= Mathf.Clamp(1f - (onGround) * 1f * Time.deltaTime, 0f, 1f);
 
+        //
+        // Acceleration
+        //
         Vector3 hVelocity;
         hVelocity.x = velocity.x;        
         hVelocity.y = 0f;
@@ -150,47 +165,27 @@ public class CarCharacterController : MonoBehaviour
         }
         velocity.x = hVelocity.x;
         velocity.z = hVelocity.z;
-
-        float a = acceleration * onGround * turnSpeedMultiplier; //* rb.mass        
+        //
+        // Faked acceleration damping caused by turning
+        //        
+        float turnSpeedMultiplier = 1.0f - (Mathf.Abs(turnTorque) / turnMaxSpeed) * turnFriction;
+        float a = acceleration * onGround * turnSpeedMultiplier;
         Vector3 accelerationVector = body.transform.forward * a;                        
         accelerationVector.y -= gravity;
 
         velocity += accelerationVector * Time.deltaTime;
         
         cc.Move(velocity * Time.deltaTime);
-        //velocity = cc.velocity;
-        //velocity.y -= (velocity.y - cc.velocity.y) * 0.2f;
+        
         velocity.x -= (velocity.x - cc.velocity.x) * 0.1f;
         velocity.z -= (velocity.z - cc.velocity.z) * 0.1f;
-
-
-        //rb.AddForce(accelerationVector, ForceMode.Acceleration);                        
-        //if (rb.velocity.magnitude > maxSpeed) {
-        //    rb.velocity *= (maxSpeed / rb.velocity.magnitude);
-        //}
-        
-        //Vector3 vDown = new Vector3(0f, -50.0f * (1.0f - onGround), 0f);
-        //rb.AddForce(vDown, ForceMode.Acceleration);
-
-        //
-        // Flying disables drag
-        //
-        //rb.drag = defaultDrag * onGround;
                         
         if (debugText) {
             debugText.text = 
             " vector      " + body.transform.forward.ToString() +
             "\n velocity    " + velocity.ToString() +
             "\n cc velocity " + cc.velocity.ToString() +
-            "\n grounded    " + onGround.ToString();
-                /*
-                rb.velocity.magnitude.ToString() + 
-                "\n" + rb.drag.ToString() +
-                "\n" + rb.angularVelocity.magnitude.ToString() +
-                "\n" + forceRotate.ToString();
-                */
+            "\n grounded    " + onGround.ToString();        
         }
     }
-
-    
 }
