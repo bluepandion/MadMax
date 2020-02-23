@@ -9,10 +9,12 @@ public class CameraController : MonoBehaviour
     
     void Start()
     {
-        
+        if (target) {
+            transform.position = target.position;
+        }
     }
 
-    void FixedUpdate()
+    void Update()
     {
         if (!target) {
             return;

@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CarController : MonoBehaviour
+public class CarCharacterController : MonoBehaviour
 {    
     public float acceleration = 8.0f;
     public float maxSpeed = 40.0f;
     public float turnAcceleration = 250.0f;
     public float turnMaxSpeed = 0.8f;
     public float turnSlowDown = 0.1f;
+    public float gravity = 9.81f;
     
     public float springDamper = 2.0f;
     
@@ -16,7 +17,9 @@ public class CarController : MonoBehaviour
     public UnityEngine.UI.Text debugText;
     
     private int layerMask = ~(1 << 8);    
-    private Rigidbody rb;
+    
+    private CharacterController cc;
+    
     private float defaultDrag = 3.0f;
 
     private Transform model;
@@ -25,14 +28,16 @@ public class CarController : MonoBehaviour
     private Transform wheelRR;
     private Transform wheelRL;
 
+    private Vector3 velocity;
+    
+
     //private float wheelRadius = 1.0f;
 
     private Transform body;
             
     void Start()
     {
-        rb = GetComponent<Rigidbody>();        
-        defaultDrag = rb.drag;
+        cc = GetComponent<CharacterController>();                
         //InitWheels();
                 
         body = transform.Find("Body");
@@ -83,6 +88,10 @@ public class CarController : MonoBehaviour
         
         RaycastHit hitGround;
         float onGround = 0.0f;
+        if (cc.isGrounded) {
+            onGround = 1.0f;
+        }
+        /*
         Vector3 p = new Vector3(0f, -.1f, 0f);
         if (Physics.Raycast(transform.position + transform.up * 0.1f,
             transform.up * -1f, 
@@ -91,55 +100,60 @@ public class CarController : MonoBehaviour
         {
             onGround = 1.0f;
         }
+        */
+
                                
         //
         // Steering
         //
-        float turnV = turn * turnAcceleration;
-        turnV *= onGround;
+        float turnV = turn * turnAcceleration * Time.deltaTime;
+        //turnV *= onGround;
 
-        rb.AddTorque(0.0f, turnV, 0.0f, ForceMode.Acceleration);
-        if (rb.angularVelocity.magnitude > turnMaxSpeed) {
-            rb.angularVelocity *= (turnMaxSpeed / 
-            rb.angularVelocity.magnitude);
-        }
+        transform.Rotate(0f, turnV, 0f);
         //
         // Force car steering if speed drops below a certain amount
         // This is in case the car gets stuck
         //
-        float forceRotate = 1.0f - (rb.velocity.magnitude / maxSpeed);
-        forceRotate = Mathf.Pow(forceRotate, 2.0f);
-        forceRotate *= turn;        
-        transform.Rotate(0.0f, forceRotate, 0.0f);
 
         //
         // Faked acceleration damping caused by turning
         //
-        float turnSpeedMultiplier = 
-            1.0f - (rb.angularVelocity.magnitude / turnMaxSpeed) * turnSlowDown;
+        
+        float turnSpeedMultiplier = 1.0f;
+        //    1.0f - (rb.angularVelocity.magnitude / turnMaxSpeed) * turnSlowDown;
         
         //
         // Engine acceleration
         //
+        
         float a = acceleration * onGround * turnSpeedMultiplier; //* rb.mass
         Vector3 accelerationVector = transform.forward * a;
+        accelerationVector.y -= gravity * Time.deltaTime;
 
-        rb.AddForce(accelerationVector, ForceMode.Acceleration);                        
-        if (rb.velocity.magnitude > maxSpeed) {
-            rb.velocity *= (maxSpeed / rb.velocity.magnitude);
+        velocity += accelerationVector;
+        if (velocity.magnitude > maxSpeed) {
+            velocity *= (maxSpeed / velocity.magnitude);
         }
+
+        cc.Move(velocity * Time.deltaTime);
+
+
+        //rb.AddForce(accelerationVector, ForceMode.Acceleration);                        
+        //if (rb.velocity.magnitude > maxSpeed) {
+        //    rb.velocity *= (maxSpeed / rb.velocity.magnitude);
+        //}
         
-        Vector3 vDown = new Vector3(0f, -50.0f * (1.0f - onGround), 0f);
-        rb.AddForce(vDown, ForceMode.Acceleration);
+        //Vector3 vDown = new Vector3(0f, -50.0f * (1.0f - onGround), 0f);
+        //rb.AddForce(vDown, ForceMode.Acceleration);
 
         //
         // Flying disables drag
         //
-        rb.drag = defaultDrag * onGround;
+        //rb.drag = defaultDrag * onGround;
                         
         if (debugText) {
             debugText.text = 
-            rb.velocity.magnitude.ToString();            
+            velocity.magnitude.ToString();            
                 /*
                 rb.velocity.magnitude.ToString() + 
                 "\n" + rb.drag.ToString() +
