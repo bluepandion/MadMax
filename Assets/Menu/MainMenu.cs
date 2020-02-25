@@ -3,16 +3,39 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
+using TMPro;
+
 
 public class MainMenu : MonoBehaviour
 {
     //private GameObject previousPage;
-    public GameObject Menu;
-    public GameObject Pause;
-    public string previousPage;
+    GameObject MenuTextObj;
+    GameObject OptionsObj; 
+    string previousPage;
     // Start is called before the first frame update
     public void Start() {
+        MenuTextObj = GameObject.Find("MenuText");
+        OptionsObj = GameObject.Find("OptionsText");
         //OptionsTrack();
+    }
+    public void Update () {
+        
+         if (Input.GetKeyDown("r"))
+         {
+            Debug.Log("R pressed!");
+            PlayGame();
+         }
+         if (Input.GetKeyDown("o"))
+         {
+            Debug.Log("o pressed!");
+            OptionsObj.GetComponent<Button>().onClick.Invoke();
+         }
+         if (Input.GetKeyDown("m"))
+         {
+            Debug.Log("m pressed!");
+            MenuTextObj.GetComponent<Button>().onClick.Invoke();
+         }
     }
     public void PlayGame()
     {
@@ -27,7 +50,7 @@ public class MainMenu : MonoBehaviour
 
     public void OptionsTrack()
     {
-         for (int i = 0; i < gameObject.transform.childCount; i++)
+        for (int i = 0; i < gameObject.transform.childCount; i++)
         {
             //Debug.Log("all children: " + gameObject.transform.GetChild(i).name);
             if(gameObject.transform.GetChild(i).gameObject.activeSelf == true)
@@ -41,6 +64,8 @@ public class MainMenu : MonoBehaviour
                     }
             }
         }
+        // Debug.Log(OptionsMenuObj);
+        // OptionsMenuObj.SetActive(true);
         /* string  previousPage = transform.GetChild(1).name;
         Debug.Log("active: " + previousPage); */
     }
