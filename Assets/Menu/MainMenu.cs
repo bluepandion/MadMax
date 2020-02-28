@@ -20,22 +20,22 @@ public class MainMenu : MonoBehaviour
         //OptionsTrack();
     }
     public void Update () {
-        
-         if (Input.GetKeyDown("r"))
-         {
-            Debug.Log("R pressed!");
-            PlayGame();
-         }
-         if (Input.GetKeyDown("o"))
-         {
-            Debug.Log("o pressed!");
-            OptionsObj.GetComponent<Button>().onClick.Invoke();
-         }
-         if (Input.GetKeyDown("m"))
-         {
-            Debug.Log("m pressed!");
-            MenuTextObj.GetComponent<Button>().onClick.Invoke();
-         }
+    }
+    public void OnMouseOver()
+    {
+        //If your mouse hovers over the GameObject with the script attached, output this message
+        Debug.Log("Mouse is over GameObject." + gameObject.name);
+        for (int i = 0; i < gameObject.transform.childCount; i++)
+        {
+            //Debug.Log("all children: " + gameObject.transform.GetChild(i).name);
+            if(gameObject.transform.GetChild(i).gameObject.activeSelf == true && gameObject.transform.GetChild(i).name != "Slider")
+            {
+                    GameObject ActiveGameObject = gameObject.transform.GetChild(i).gameObject;
+                    ActiveGameObject.GetComponent<TextMeshProUGUI>().color = new Color32(255, 255, 255, 255);
+
+            }
+        }
+
     }
     public void PlayGame()
     {
