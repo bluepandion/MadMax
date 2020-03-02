@@ -15,21 +15,13 @@ MonoBehaviour:
   active: 1
   enabled:
     overrideState: 1
-<<<<<<< HEAD
-    value: 1
-=======
     value: 0
->>>>>>> Add basic physics to CarCharacterController, refine test level
   intensity:
     overrideState: 1
     value: 2
   threshold:
     overrideState: 1
-<<<<<<< HEAD
-    value: 1.2
-=======
     value: 1
->>>>>>> Add basic physics to CarCharacterController, refine test level
   softKnee:
     overrideState: 1
     value: 0.556
