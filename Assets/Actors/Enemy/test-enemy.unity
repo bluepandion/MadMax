@@ -27949,6 +27949,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1974043764968957621, guid: 5081d207c163d3e499e6716b8e2c9682,
+        type: 3}
+      propertyPath: clipSize
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1974043764968957626, guid: 5081d207c163d3e499e6716b8e2c9682,
+        type: 3}
+      propertyPath: m_Radius
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 1974043764968957627, guid: 5081d207c163d3e499e6716b8e2c9682,
         type: 3}
       propertyPath: m_LocalPosition.x

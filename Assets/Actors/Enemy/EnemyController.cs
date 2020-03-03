@@ -5,6 +5,9 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     private int layerMask = (1 << 8);
+    private int dectectRadius = 12;
+    private GameObject player;
+    private Vector3 targetPosition;
 
     public Transform enemy;
 
@@ -12,16 +15,18 @@ public class EnemyController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gunComponent = GetComponent<PlayerGun>();      
+        gunComponent = GetComponent<PlayerGun>();
+        DetectPlayer(transform.position, dectectRadius);      
     }
 
     // Update is called once per frame
     void Update()
     {
-        DetectEnemy(transform.position, 8);
+        DetectPlayer(transform.position, dectectRadius);
+        transform.LookAt(targetPosition);
     }
 
-    void DetectEnemy(Vector3 center, float radius)
+    void DetectPlayer(Vector3 center, float radius)
     {
         Collider[] hitColliders = Physics.OverlapSphere(center, radius, layerMask);
         int i = 0;
@@ -29,12 +34,16 @@ public class EnemyController : MonoBehaviour
         {
             Shoot();
             Debug.Log(hitColliders[i].name);
+            player = GameObject.Find(hitColliders[i].name);
+            targetPosition = player.transform.position;
             i++;
         }
     }
 
     private void Shoot() {
         Debug.Log("Enemy shoot");
-        gunComponent.Shoot(transform.rotation);
+        Quaternion rotation = Quaternion.FromToRotation(targetPosition, transform.forward);
+        Debug.Log(rotation);
+        gunComponent.Shoot(rotation);
     }
 }
