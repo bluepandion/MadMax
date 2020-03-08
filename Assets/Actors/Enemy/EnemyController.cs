@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     private int layerMask = (1 << 8);
-    private int dectectRadius = 12;
+    private int dectectRadius = 20;
     private GameObject player;
     private Vector3 targetPosition;
 
@@ -42,8 +42,8 @@ public class EnemyController : MonoBehaviour
 
     private void Shoot() {
         Debug.Log("Enemy shoot");
-        Quaternion rotation = Quaternion.FromToRotation(targetPosition, transform.forward);
-        Debug.Log(rotation);
-        gunComponent.Shoot(rotation);
+        Quaternion rot = transform.rotation;//Quaternion.FromToRotation(targetPosition, transform.forward);
+        Debug.Log(rot);
+        gunComponent.Shoot(rot);
     }
 }
