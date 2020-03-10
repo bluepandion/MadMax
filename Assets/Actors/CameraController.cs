@@ -6,7 +6,7 @@ public class CameraController : MonoBehaviour
 {
     public Transform target;
     public float speed = 0.5f;
-    
+
     void Start()
     {
         if (target) {
@@ -20,7 +20,7 @@ public class CameraController : MonoBehaviour
             return;
         }
         Vector3 newPos;
-        newPos = Vector3.Lerp(transform.position, target.position, speed);
+        newPos = Vector3.Lerp(transform.position, target.position, speed * Time.deltaTime);
         transform.position = newPos;
     }
 }

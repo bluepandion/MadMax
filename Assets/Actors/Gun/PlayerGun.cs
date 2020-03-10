@@ -13,7 +13,7 @@ public class PlayerGun : MonoBehaviour
     private float shootTimer = 0f;
     private float clipTimer = 0f;
     private int clip = 0;
-    
+
     void Start()
     {
         shootTimer = shootDelay;
@@ -21,11 +21,11 @@ public class PlayerGun : MonoBehaviour
         clip = clipSize;
     }
 
-    
+
     void Update()
     {
-        shootTimer += Time.deltaTime;        
-        if (clip == 0)        
+        shootTimer += Time.deltaTime;
+        if (clip == 0)
         {
             clipTimer += Time.deltaTime;
             if (clipTimer >= clipDelay)
@@ -37,20 +37,22 @@ public class PlayerGun : MonoBehaviour
 
     public void Shoot(Quaternion gunAngle)
     {
-        if (clip == 0) 
+        if (clip == 0)
         {
             return;
         }
-        if (shootTimer >= shootDelay) 
+        if (shootTimer >= shootDelay)
         {
             if (bullet)
-            {                
+            {
                 GameObject b = Instantiate(bullet, transform.position, gunAngle);
-                Debug.Log("Shoot");                                
+                Bullet bulletComponent = b.GetComponent<Bullet>();
+                bulletComponent.SetAngle(gunAngle);
+                Debug.Log("Shoot");
             }
-            
+
             shootTimer = 0f;
-            clip--;            
+            clip--;
             if (clip == 0)
             {
                 clipTimer = 0f;
