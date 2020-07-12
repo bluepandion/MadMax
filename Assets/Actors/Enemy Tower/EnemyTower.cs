@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour
+public class EnemyTower : MonoBehaviour
 {
     private int layerMask = (1 << 8);
     private int dectectRadius = 20;
@@ -11,12 +11,12 @@ public class EnemyController : MonoBehaviour
 
     public Transform enemy;
 
-    private PlayerGun gunComponent; 
+    private PlayerGun gunComponent;
     // Start is called before the first frame update
     void Start()
     {
         gunComponent = GetComponent<PlayerGun>();
-        DetectPlayer(transform.position, dectectRadius);      
+        DetectPlayer(transform.position, dectectRadius);
     }
 
     // Update is called once per frame

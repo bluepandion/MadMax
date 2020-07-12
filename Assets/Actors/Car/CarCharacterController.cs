@@ -62,50 +62,17 @@ public class CarCharacterController : MonoBehaviour
         }
     }
 
-    void InitWheels() {
-        Transform modelParent;
-        Transform model;
-        Transform wheelParent;
-        modelParent = transform.Find("Model");
-        if (!modelParent) {
-            Debug.Log("Car model node not found.");
-        }
-        model = modelParent.transform.GetChild(0);
-        if (!model) {
-            Debug.Log("Car model not found.");
-        }
-        wheelParent = model.transform.Find("Wheels");
-        if (!wheelParent) {
-            Debug.Log("Car wheels parent 'Wheels' not found.");
-        }
-        wheelFR = wheelParent.Find("WheelFrontR");
-        wheelFL = wheelParent.Find("WheelFrontL");
-        wheelRR = wheelParent.Find("WheelRearR");
-        wheelRL = wheelParent.Find("WheelRearL");
-        if (!wheelFR) {
-            Debug.Log("Car WheelFrontR not found");
-        }
-        if (!wheelFL) {
-            Debug.Log("Car WheelFrontL not found");
-        }
-        if (!wheelRR) {
-            Debug.Log("Car WheelRearR not found");
-        }
-        if (!wheelRL) {
-            Debug.Log("Car WheelRearL not found");
-        }
-        Debug.Log("Car wheels-init done.");
-    }
-
     void Update()
     {
     }
 
-    public void Shoot() {
+    public void Shoot()
+    {
         gunComponent.Shoot(gun.rotation);
     }
 
-    public void HandlePhysics(float turn, float breaks) {
+    public void HandlePhysics(float turn, float breaks)
+    {
         float onGround = 0.0f;
         if (cc.isGrounded) {
             onGround = 1.0f;
@@ -175,7 +142,8 @@ public class CarCharacterController : MonoBehaviour
         velocity.x -= (velocity.x - cc.velocity.x) * softener * Time.deltaTime;
         velocity.z -= (velocity.z - cc.velocity.z) * softener * Time.deltaTime;
 
-        if (debugText) {
+        if (debugText)
+        {
             debugText.text =
             " vector      " + body.transform.forward.ToString() +
             "\n velocity    " + velocity.ToString() +
@@ -184,7 +152,22 @@ public class CarCharacterController : MonoBehaviour
         }
     }
 
-    public void Melt() {
+    void OnTriggerEnter(Collider hit)
+    {
+        Transform o = hit.transform;
+        Player p = transform.parent.GetComponent<Player>();
+        if (p)
+        {
+            p.state.EnterZone(o);
+        }
+        //if (o.GetComponent("Lava")) {
+        //    Debug.Log("Player hit lava");
+        //}
+
+    }
+
+    public void Melt()
+    {
         cc.Move(new Vector3(0f, -1f, 0f) * Time.deltaTime);
     }
 }
