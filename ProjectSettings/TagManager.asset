@@ -18,8 +18,8 @@ TagManager:
   - Level Zone
   - Enemy
   - Enemy Bullets
-  - 
-  - 
+  - EditorOnly
+  - Pickup
   - 
   - 
   - 

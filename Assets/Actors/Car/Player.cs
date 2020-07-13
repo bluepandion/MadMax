@@ -96,6 +96,12 @@ public class Player : MonoBehaviour
             {
                 Change(new Player.StateMelting(o));
             }
+
+            if (zone.GetComponent("Pickup"))
+            {
+                Pickup p = zone.GetComponent<Pickup>();
+                p.Pick();
+            }
         }
     }
 

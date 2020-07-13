@@ -1,4 +1,4 @@
-﻿Shader "MadMax/NewSurfaceShader"
+﻿Shader "MadMax/BaseTerrain"
 {
     Properties
     {
