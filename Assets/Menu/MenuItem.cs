@@ -10,7 +10,7 @@ public class MenuItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     private Color32 cachedColor;
     public GameObject targetPage;
 
-    private bool hover = false;
+    //private bool hover = false;
 
     void Start()
     {
@@ -27,20 +27,17 @@ public class MenuItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         transform.localScale = cachedScale;
         GetComponent<TextMeshProUGUI>().color = cachedColor;
-        hover = false;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
         transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
         GetComponent<TextMeshProUGUI>().color = new Color32(255, 255, 255, 255);
-        hover = true;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         transform.localScale = cachedScale;
         GetComponent<TextMeshProUGUI>().color = cachedColor;
-        hover = false;
     }
 }
