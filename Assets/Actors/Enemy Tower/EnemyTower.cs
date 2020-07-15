@@ -5,45 +5,65 @@ using UnityEngine;
 public class EnemyTower : MonoBehaviour
 {
     private int layerMask = (1 << 8);
-    private int dectectRadius = 20;
     private GameObject player;
     private Vector3 targetPosition;
-
-    public Transform enemy;
+    private bool playerEnter = false;
+    private Transform playerTransform;
+    private float speed = 0.05f;
 
     private PlayerGun gunComponent;
     // Start is called before the first frame update
     void Start()
     {
         gunComponent = GetComponent<PlayerGun>();
-        DetectPlayer(transform.position, dectectRadius);
     }
 
     // Update is called once per frame
     void Update()
     {
-        DetectPlayer(transform.position, dectectRadius);
-        transform.LookAt(targetPosition);
+        if (playerTransform) {
+            transform.LookAt(playerTransform.position);
+        }
+        
+        if (playerEnter) {
+            Shoot();
+        }
     }
 
-    void DetectPlayer(Vector3 center, float radius)
+    void OnTriggerEnter(Collider other)
     {
-        Collider[] hitColliders = Physics.OverlapSphere(center, radius, layerMask);
-        int i = 0;
-        while (i < hitColliders.Length)
+        Debug.Log("Tower detecting");
+        if (other.gameObject.GetComponent<CarCharacterController>())
         {
+            Debug.Log("Tower detected player");
+            playerEnter = true;
             Shoot();
-            Debug.Log(hitColliders[i].name);
-            player = GameObject.Find(hitColliders[i].name);
-            targetPosition = player.transform.position;
-            i++;
+            playerTransform = other.transform;
+            targetPosition = playerTransform.position;
         }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        Debug.Log("Exit detecting");
+        if (other.gameObject.GetComponent<CarCharacterController>())
+        {
+            Debug.Log("Tower detected player");
+            playerEnter = false;
+        }
+
     }
 
     private void Shoot() {
         Debug.Log("Enemy shoot");
-        Quaternion rot = transform.rotation;//Quaternion.FromToRotation(targetPosition, transform.forward);
-        Debug.Log(rot);
-        gunComponent.Shoot(rot);
+        var step = speed * Time.deltaTime;
+
+        if (transform && playerTransform) {
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, playerTransform.rotation, step);
+            Quaternion rot = transform.rotation;
+            Debug.Log(rot);
+            gunComponent.Shoot(rot);
+
+        }
     }
 }
