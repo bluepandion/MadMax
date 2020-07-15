@@ -4,7 +4,7 @@ using UnityEngine;
 
 [ExecuteAlways]
 
-public class LevelTile : MonoBehaviour
+public class Block : MonoBehaviour
 {
     private Vector3 snap = new Vector3(10f, 5f, 10f);
     private Vector3 previousPosition = new Vector3(0f, 0f, 0f);
@@ -15,6 +15,17 @@ public class LevelTile : MonoBehaviour
 
     private bool update = false;
 
+    public enum BlockType
+    {
+        Block,
+        Slope,
+        SlopeBridge,
+        AngledBlock,
+        AngledSlopeStart,
+        AngledSlopeMid,
+        AngledSlopeEnd
+    }
+
     public enum TerrainType
     {
         Terrain,
@@ -23,16 +34,22 @@ public class LevelTile : MonoBehaviour
     }
 
     public TerrainType type;
+    public BlockType blockType;
 
-    public GameObject trimN;
-    public GameObject trimE;
-    public GameObject trimS;
-    public GameObject trimW;
-    public GameObject trimNE;
-    public GameObject trimSE;
-    public GameObject trimSW;
-    public GameObject trimNW;
-    public GameObject trimAngle;
+    private GameObject trimN;
+    private GameObject trimE;
+    private GameObject trimS;
+    private GameObject trimW;
+    private GameObject trimNE;
+    private GameObject trimSE;
+    private GameObject trimSW;
+    private GameObject trimNW;
+    private GameObject trimAngle;
+
+    public Mesh Wall;
+    public Mesh AngledWall;
+    public Mesh SlopeWall;
+    public Mesh BridgeWall;
 
     void Start()
     {

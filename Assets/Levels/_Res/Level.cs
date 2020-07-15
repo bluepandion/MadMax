@@ -10,7 +10,10 @@ public class Level : MonoBehaviour
 
     void Start()
     {
-        GameState.Instance.player.ResetLevelState();
+        if (Application.IsPlaying(gameObject))
+        {
+            GameState.Player.ResetLevelState();
+        }
     }
 
     void Update()

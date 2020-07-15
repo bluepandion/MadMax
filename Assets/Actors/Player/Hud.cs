@@ -17,11 +17,11 @@ public class Hud : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (visibleScore != GameState.Instance.player.score)
+        if (visibleScore != GameState.Player.score)
         {
-            int diff = GameState.Instance.player.score - visibleScore;
+            int diff = GameState.Player.score - visibleScore;
             visibleScore += Mathf.Clamp(diff / 2, 1, 100);
-            visibleScore = Mathf.Clamp(visibleScore, 0, GameState.Instance.player.score);
+            visibleScore = Mathf.Clamp(visibleScore, 0, GameState.Player.score);
             SetScore(visibleScore);
         }
     }

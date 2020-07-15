@@ -6,33 +6,43 @@ using System.Collections.Generic;
  public class GameState : MonoBehaviour
  {
      private static GameState instance = null;
-     public PlayerState player = new PlayerState();
+     private static PlayerState player = null;
 
      // Game Instance Singleton
      public static GameState Instance
      {
          get
          {
-             if (instance == null)
-             {
-                GameObject g = new GameObject();
-                g.name = "GameState Singleton";
-                instance = g.AddComponent(typeof(GameState)) as GameState;
-             }
-             return instance;
+            return instance;
+         }
+     }
+
+     public static PlayerState Player
+     {
+         get
+         {
+            if (player == null)
+            {
+                player = new PlayerState();
+                Debug.Log("New PlayerState singleton created via get");
+            }
+            return player;
          }
      }
 
      private void Awake()
      {
-         // if the singleton hasn't been initialized yet
-         if (instance != null && instance != this)
-         {
-             Destroy(this.gameObject);
-         }
-
-         instance = this;
-         DontDestroyOnLoad( this.gameObject );
+         if (Application.IsPlaying(gameObject)) {
+            // if the singleton hasn't been initialized yet
+            if (instance != null && instance != this)
+            {
+                Destroy(this.gameObject);
+            } else {
+                Debug.Log("GameState singleton created via Awake");
+                instance = this;
+                DontDestroyOnLoad( this.gameObject );
+            }
+        }
      }
 
      void Update()
@@ -63,6 +73,7 @@ using System.Collections.Generic;
              kills = 0;
              stars = 0;
              nitros = 0;
+             Debug.Log("PlayerState singleton :: ResetLevelState()");
          }
      }
  }

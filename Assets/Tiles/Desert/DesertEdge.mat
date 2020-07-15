@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: DesertTerrain
+  m_Name: DesertEdge
   m_Shader: {fileID: 4800000, guid: c4136054bb5a7d04bb9fda8b806edb95, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -40,7 +40,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 9fc55206cf8a7d84289da623d9a89579, type: 3}
+        m_Texture: {fileID: 2800000, guid: 06ba8b1aff1055540b3e1d3946c914c5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:

@@ -1,13 +1,17 @@
 
--[ ] Player state singleton
+-[X] Player state singleton
 
--[ ] Player death, respawn and level reset
+-[X] Player death, respawn and level reset
 
 -[X] Lava
 
--[ ] Player score / completion data'
+-[ ] Player score / completion data
+
+-[ ] Player health
 
 -[ ] Player state local save file
+
+-[ ] Player Nitro
 
 -[ ] Level start prompt (fire when ready)
 
@@ -17,10 +21,12 @@
 
 -[ ] Enemies
      [ ] Tower
+     [ ] Berserker
 
 -[ ] Pickups:
-     [ ] Star (basic collectable)
+     [X] Star (basic collectable)
      [ ] Goal
+     [ ] Nitro
 
 -[ ] Title screen
      [ ]
