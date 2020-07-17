@@ -6,6 +6,7 @@ public class berserker : MonoBehaviour
 {
     private CharacterController bc;
     private Transform playerTransform;
+    public GameObject explosion;
     private Vector3 velocity;
     public float moveSpeed = 10f;
     public float friction = 0.9f;
@@ -50,5 +51,24 @@ public class berserker : MonoBehaviour
 
             playerEnter = true;
         }
+    }
+
+    void OnControllerColliderHit(ControllerColliderHit hit) {
+        if (
+            hit.gameObject.GetComponent<CarCharacterController>() ||
+            hit.gameObject.GetComponent<Bullet>() ||
+            hit.gameObject.GetComponent<Lava>() ||
+            hit.gameObject.GetComponent<EnemyTower>()
+            )
+        {
+            DestroyObj();
+        }
+    }
+
+    void DestroyObj() {
+        GameObject expl = Instantiate(explosion, transform.position, Quaternion.identity) as GameObject;
+        Destroy(gameObject); // destroy the berserker
+        Destroy(expl, 2); // delete the explosion after 3 seconds
+
     }
 }
