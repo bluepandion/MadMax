@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8691411367694279159
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6995443656010509824}
+  - component: {fileID: 1879925667634734787}
+  m_Layer: 0
+  m_Name: TestSkin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6995443656010509824
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8691411367694279159}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.2656183, y: 32.694077, z: -16.832623}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1879925667634734787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8691411367694279159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93a53da484eaf15488e8e40bce7b367a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wallMesh: {fileID: -5801228030656462994, guid: 5bf13012879444a40af5644e74056db7,
+    type: 3}
+  angledWallMesh: {fileID: 0}
+  slopeWallMesh: {fileID: 0}
+  bridgeWallMesh: {fileID: 0}
+  cornerMesh: {fileID: 0}
+  wallMaterial: {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
+  terrainMaterial: {fileID: 2100000, guid: 86fea394bb7952a4d8753a8065a54354, type: 2}
+  blockMaterial: {fileID: 2100000, guid: d59274722d95f3545bd2ec6d34ef9237, type: 2}
+  lavaMaterial: {fileID: 0}

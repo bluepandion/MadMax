@@ -3,7 +3,14 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Trim-Wall
+  - Trim-Angled-Wall
+  - Trim-Slope-Wall
+  - Trim-Bridge-Wall
+  - Trim-Corner
+  - Enemy
+  - Lava
   layers:
   - Default
   - TransparentFX

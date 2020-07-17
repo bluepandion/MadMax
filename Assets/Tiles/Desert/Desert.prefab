@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2613113387850455126
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2671425321413458031}
+  - component: {fileID: 3376845844933877384}
+  m_Layer: 0
+  m_Name: Desert
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2671425321413458031
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2613113387850455126}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3376845844933877384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2613113387850455126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93a53da484eaf15488e8e40bce7b367a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wallMesh: {fileID: 4821627517887527350, guid: 987b5d17aad58cc4ba31603bee15623d,
+    type: 3}
+  angledWallMesh: {fileID: 2613118859268318411, guid: 987b5d17aad58cc4ba31603bee15623d,
+    type: 3}
+  slopeWallMesh: {fileID: 8040514911443179723, guid: 987b5d17aad58cc4ba31603bee15623d,
+    type: 3}
+  bridgeWallMesh: {fileID: 0}
+  cornerMesh: {fileID: 0}
+  wallMaterial: {fileID: 2100000, guid: c5a3736e462563e4fa876b32528c2822, type: 2}
+  terrainMaterial: {fileID: 2100000, guid: 2a05ec00e73c1a244973e3ec7140c4a7, type: 2}
+  blockMaterial: {fileID: 2100000, guid: 76322cc85c874764984f97ca268b063f, type: 2}
+  lavaMaterial: {fileID: 188604662202002027, guid: 11db2fddc5305f747a987ff15b4bd904,
+    type: 3}

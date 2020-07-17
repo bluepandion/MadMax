@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 6496788867639484233}
   - component: {fileID: 6496788867639484236}
   - component: {fileID: 9122106730538335500}
-  - component: {fileID: -3471575990755690649}
+  - component: {fileID: 3990157784155365965}
   m_Layer: 14
   m_Name: Star
   m_TagString: Untagged
@@ -139,7 +139,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 3131924493423288778}
---- !u!114 &-3471575990755690649
+--- !u!114 &3990157784155365965
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -148,15 +148,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 6496788867639484237}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44c894e3fd3a09045a7476360781838d, type: 3}
+  m_Script: {fileID: 11500000, guid: 0c09578ae1375b444aa557c97367ffde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trimN: {fileID: 0}
-  trimE: {fileID: 0}
-  trimS: {fileID: 0}
-  trimW: {fileID: 0}
-  trimNE: {fileID: 0}
-  trimSE: {fileID: 0}
-  trimSW: {fileID: 0}
-  trimNW: {fileID: 0}
-  trimAngle: {fileID: 0}
