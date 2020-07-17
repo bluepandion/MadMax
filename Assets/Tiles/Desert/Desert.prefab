@@ -49,10 +49,10 @@ MonoBehaviour:
     type: 3}
   slopeWallMesh: {fileID: 8040514911443179723, guid: 987b5d17aad58cc4ba31603bee15623d,
     type: 3}
-  bridgeWallMesh: {fileID: 0}
+  bridgeWallMesh: {fileID: 1848648425973726650, guid: 987b5d17aad58cc4ba31603bee15623d,
+    type: 3}
   cornerMesh: {fileID: 0}
   wallMaterial: {fileID: 2100000, guid: c5a3736e462563e4fa876b32528c2822, type: 2}
   terrainMaterial: {fileID: 2100000, guid: 2a05ec00e73c1a244973e3ec7140c4a7, type: 2}
-  blockMaterial: {fileID: 2100000, guid: 76322cc85c874764984f97ca268b063f, type: 2}
-  lavaMaterial: {fileID: 188604662202002027, guid: 11db2fddc5305f747a987ff15b4bd904,
-    type: 3}
+  blockMaterial: {fileID: 0}
+  lavaMaterial: {fileID: 0}
