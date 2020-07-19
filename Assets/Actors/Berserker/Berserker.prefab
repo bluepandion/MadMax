@@ -155,6 +155,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3900c8385fd93541bc65a25e35b8850, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 25
+  explosion: {fileID: 255380280096663550, guid: e1db54f81e80de544a4e39d7c15fea77,
+    type: 3}
+  moveSpeed: 22
   friction: 0.99
   gravity: 9

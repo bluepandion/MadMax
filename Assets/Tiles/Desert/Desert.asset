@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bafbae8d202b5eb4ab3611f75a74faa4, type: 3}
+  m_Name: Desert
+  m_EditorClassIdentifier: 
+  wallMesh: {fileID: 4821627517887527350, guid: 7a73d63358993ba4fac328fe48f65d20,
+    type: 3}
+  angledWallMesh: {fileID: 2613118859268318411, guid: 7a73d63358993ba4fac328fe48f65d20,
+    type: 3}
+  slopeWallMesh: {fileID: 0}
+  bridgeWallMesh: {fileID: 0}
+  cornerMesh: {fileID: 0}
+  wallMaterial: {fileID: 2100000, guid: db55eb556693daf48bee802319a0e372, type: 2}
+  terrainMaterial: {fileID: 2100000, guid: 2a05ec00e73c1a244973e3ec7140c4a7, type: 2}
+  blockMaterial: {fileID: 0}
+  lavaMaterial: {fileID: 0}

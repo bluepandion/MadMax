@@ -33,7 +33,7 @@
         half _Metallic;
         fixed4 _Color;
 
-        static const float TILE_SIZE = 40.0;
+        static const float TILE_SIZE = 20.0;
 
         // Add instancing support for this shader. You need to check 'Enable Instancing' on materials that use the shader.
         // See https://docs.unity3d.com/Manual/GPUInstancing.html for more information about instancing.
@@ -44,7 +44,7 @@
 
         void surf (Input IN, inout SurfaceOutputStandard o)
         {
-            float2 worldUv = float2(IN.worldPos.x / TILE_SIZE, IN.worldPos.z / TILE_SIZE);
+            float2 worldUv = float2(IN.worldPos.x / TILE_SIZE + 0.25, IN.worldPos.z / TILE_SIZE + 0.25);
             fixed4 c = tex2D (_MainTex, worldUv) * _Color;
             o.Albedo = c.rgb;
 

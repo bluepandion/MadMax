@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 880578097270861048}
   - component: {fileID: 880578097270861049}
   - component: {fileID: 880578097270861050}
-  - component: {fileID: 3200791620312376363}
   - component: {fileID: -525718631767562043}
   m_Layer: 10
   m_Name: Lava
@@ -42,7 +41,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 880578097270861051}
-  m_Mesh: {fileID: -16759802576850276, guid: 971f5d027db152b4080ee1a9243be7c1, type: 3}
+  m_Mesh: {fileID: -7350074754275262827, guid: ceb8f94669e91c849b1991c4fad825e3, type: 3}
 --- !u!23 &880578097270861049
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -94,19 +93,7 @@ MeshCollider:
   serializedVersion: 3
   m_Convex: 1
   m_CookingOptions: 14
-  m_Mesh: {fileID: -16759802576850276, guid: 971f5d027db152b4080ee1a9243be7c1, type: 3}
---- !u!114 &3200791620312376363
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 880578097270861051}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44c894e3fd3a09045a7476360781838d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Mesh: {fileID: -16759802576850276, guid: ceb8f94669e91c849b1991c4fad825e3, type: 3}
 --- !u!114 &-525718631767562043
 MonoBehaviour:
   m_ObjectHideFlags: 0
