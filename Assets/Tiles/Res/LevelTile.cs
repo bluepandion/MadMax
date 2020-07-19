@@ -19,7 +19,6 @@ public class LevelTile : MonoBehaviour
     public LevelTileSkin skin;
     private LevelTileSkin previousSkin = null;
 
-    private bool ready = false;
     private bool update = false;
     public bool requestUpdate
     {
@@ -56,7 +55,6 @@ public class LevelTile : MonoBehaviour
     {
         Debug.Log("LevelTile :: Init()");
         Transform t;
-
         t = transform.Find("N");
         if (t) { trimN = t.gameObject; }
         t = transform.Find("E");
@@ -65,8 +63,6 @@ public class LevelTile : MonoBehaviour
         if (t) { trimS = t.gameObject; }
         t = transform.Find("W");
         if (t) { trimW = t.gameObject; }
-
-        ready = true;
         ValidateSkin();
         SetTrimVisibility(false);
     }
@@ -140,9 +136,17 @@ public class LevelTile : MonoBehaviour
             o.SetActive(true);
             MeshRenderer r = o.GetComponent<MeshRenderer>();
             r.material = skin.wallMaterial;
-            if (o.gameObject.tag == "Tile-Wall")
+            switch (o.gameObject.tag)
             {
-                m.mesh = skin.wallMesh;
+                case "Tile-Wall":
+                    m.mesh = skin.wallMesh;
+                    break;
+                case "Tile-AngleWall":
+                    m.mesh = skin.angledWallMesh;
+                    break;
+                case "Tile-SlopeWall":
+                    m.mesh = skin.slopeWallMesh;
+                    break;
             }
         } else {
             o.SetActive(false);

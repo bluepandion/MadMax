@@ -5,6 +5,13 @@ TagManager:
   serializedVersion: 2
   tags:
   - Tile-Wall
+  - Tile-WallAngle
+  - Tile-WallSlope
+  - Tile-WallCorner
+  - Tile-WallBridge
+  - Lava
+  - Enemy
+  - Enemy-Bullet
   layers:
   - Default
   - TransparentFX

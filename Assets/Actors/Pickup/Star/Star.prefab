@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4806955164639305782}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 3.69, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6496788867639484233}
@@ -57,8 +57,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 8768d86798ca1a943846cc82aaaa8389, type: 2}
+  - {fileID: 2100000, guid: 8768d86798ca1a943846cc82aaaa8389, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -90,6 +90,7 @@ GameObject:
   - component: {fileID: 6496788867639484233}
   - component: {fileID: 6496788867639484236}
   - component: {fileID: 9122106730538335500}
+  - component: {fileID: 5443507943509462146}
   m_Layer: 14
   m_Name: Star
   m_TagString: Untagged
@@ -123,8 +124,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 3.48
-  m_Center: {x: -0.007030934, y: 0.0961335, z: 0}
+  m_Radius: 4.11
+  m_Center: {x: -0.007030934, y: 1.14, z: 0}
 --- !u!114 &9122106730538335500
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,3 +139,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 3131924493423288778}
+--- !u!114 &5443507943509462146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6496788867639484237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc1b1e34e97c9d748ae64f6306412bce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
