@@ -83,7 +83,7 @@ public class CarCharacterController : MonoBehaviour
         RaycastHit hitGround;
         Vector3 p = new Vector3(0f, -.25f, 0f);
         if (Physics.Raycast(body.transform.position,
-            transform.up * -.25f,
+            transform.up * -1f,
             out hitGround,
             0.4f,
             layerMask))
