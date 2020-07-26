@@ -12,6 +12,8 @@ TagManager:
   - Lava
   - Enemy
   - Enemy-Bullet
+  - Berserker
+  - Player-Bullet
   layers:
   - Default
   - TransparentFX
@@ -28,8 +30,8 @@ TagManager:
   - Enemy Bullets
   - EditorOnly
   - Pickup
-  - 
-  - 
+  - Detector
+  - Player-Bullet
   - 
   - 
   - 

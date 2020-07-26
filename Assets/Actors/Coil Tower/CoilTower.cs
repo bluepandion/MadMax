@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CoilTower : MonoBehaviour
+public class CoilTower : EnemyBody
 {
     // Start is called before the first frame update
     
@@ -23,7 +23,7 @@ public class CoilTower : MonoBehaviour
         
     }
 
-    void OnTriggerEnter(Collider other)
+    private void PlayerEnter(Collider other)
     {
         if (other.gameObject.GetComponent<CarCharacterController>())
         {
@@ -42,7 +42,7 @@ public class CoilTower : MonoBehaviour
 
             Vector3 world = new Vector3 (0f, -1f, 0f);
             RaycastHit hitGround;
-            if (Physics.Raycast( (flashSpawn + new Vector3(0f, 100f, 0f)),
+            if (Physics.Raycast((flashSpawn + new Vector3(0f, 100f, 0f)),
                 world,
                 out hitGround,
                 150f,
@@ -58,6 +58,26 @@ public class CoilTower : MonoBehaviour
             }
 
             playerEnter = true;
+        }
+    }
+
+    //when bullet hit tower
+    private void OnTriggerEnter(Collider collision) {
+        Debug.Log("Coil collision");
+        if (collision.gameObject.tag == "Player-Bullet") {
+            Debug.Log("Coil being shot");
+            gameObject.GetComponent<EnemyBody>().SelfDestruct(1f);
+        }
+    }
+
+    public override void HandleDetection (Collider other, Transform currentTransform)
+    {
+        Debug.Log("Coil : EnemyBody :: HandleDetection()");
+        if (other.gameObject.tag == "Player")
+        {
+            Debug.Log("Coil detected player");
+            PlayerEnter(other);
+            return;
         }
     }
 

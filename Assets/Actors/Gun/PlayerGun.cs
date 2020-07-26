@@ -37,6 +37,7 @@ public class PlayerGun : MonoBehaviour
 
     public void Shoot(Quaternion gunAngle)
     {
+        Debug.Log("Shoot");
         if (clip == 0)
         {
             return;
@@ -49,6 +50,8 @@ public class PlayerGun : MonoBehaviour
                 Bullet bulletComponent = b.GetComponent<Bullet>();
                 bulletComponent.SetAngle(gunAngle);
                 Debug.Log("Shoot");
+            } else {
+                Debug.Log("No bullet");
             }
 
             shootTimer = 0f;

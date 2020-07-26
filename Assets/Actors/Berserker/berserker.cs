@@ -2,16 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class berserker : MonoBehaviour
+
+public class Berserker : EnemyBody
 {
     private CharacterController bc;
     private Transform playerTransform;
-    public GameObject explosion;
+    //public GameObject explosion;
     private Vector3 velocity;
     public float moveSpeed = 10f;
     public float friction = 0.9f;
     public float gravity = 9f;
     private bool playerEnter = false;
+    private bool selfDestruct = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -40,35 +42,44 @@ public class berserker : MonoBehaviour
         
     }
 
-    void OnTriggerEnter(Collider other)
+    public void PlayerEnter(Collider other)
     {
         //Debug.Log("Berserker detecting");
-        if (other.gameObject.GetComponent<CarCharacterController>())
-        {
-            Debug.Log("Beserker detected player");
-            transform.LookAt(bc.transform);
-            playerTransform = other.transform;
-
-            playerEnter = true;
-        }
+        
     }
 
     void OnControllerColliderHit(ControllerColliderHit hit) {
         if (
             hit.gameObject.GetComponent<CarCharacterController>() ||
-            hit.gameObject.GetComponent<Bullet>() ||
             hit.gameObject.GetComponent<Lava>() ||
-            hit.gameObject.GetComponent<EnemyTower>()
+            hit.gameObject.GetComponent<EnemyTower>() ||
+            (hit.gameObject.tag == "Player-Bullet")
             )
         {
-            DestroyObj();
+            if (!selfDestruct) {
+                selfDestruct = true;
+                gameObject.GetComponent<EnemyBody>().SelfDestruct(0.1f);
+            }
+            //DestroyObj();
         }
     }
 
-    void DestroyObj() {
+    public override void HandleDetection (Collider other, Transform currentTransform)
+    {
+        Debug.Log("Berserker : EnemyBody :: HandleDetection()");
+        if (other.gameObject.tag == "Player")
+        {
+            Debug.Log("Beserker detected player");
+            transform.LookAt(other.transform);
+            playerTransform = other.transform;
+            playerEnter = true;
+            return;
+        }
+    }
+    /* void DestroyObj() {
         GameObject expl = Instantiate(explosion, transform.position, Quaternion.identity) as GameObject;
         Destroy(gameObject); // destroy the berserker
         Destroy(expl, 2); // delete the explosion after 3 seconds
 
-    }
+    } */
 }
