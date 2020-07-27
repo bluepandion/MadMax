@@ -31,19 +31,6 @@ public class EnemyTower : EnemyBody
         }
     }
 
-    /* void OnTriggerEnter(Collider other)
-    {
-        Debug.Log("Tower detecting");
-        if (other.gameObject.GetComponent<CarCharacterController>())
-        {
-            Debug.Log("Tower detected player");
-            playerEnter = true;
-            Shoot();
-            playerTransform = other.transform;
-            targetPosition = playerTransform.position;
-        }
-    } */
-
     public override void HandleExitDetection (Collider other, Transform currentTransform)
     {
         Debug.Log("Exit detected");

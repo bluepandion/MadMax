@@ -48,7 +48,7 @@ public class Berserker : EnemyBody
         
     }
 
-    void OnControllerColliderHit(ControllerColliderHit hit) {
+    void OnTriggerEnter(Collider hit) {
         if (
             hit.gameObject.GetComponent<CarCharacterController>() ||
             hit.gameObject.GetComponent<Lava>() ||
@@ -56,11 +56,11 @@ public class Berserker : EnemyBody
             (hit.gameObject.tag == "Player-Bullet")
             )
         {
+            //Debug.Log("Beserker being hit");
             if (!selfDestruct) {
                 selfDestruct = true;
                 gameObject.GetComponent<EnemyBody>().SelfDestruct(0.1f);
             }
-            //DestroyObj();
         }
     }
 
@@ -76,10 +76,4 @@ public class Berserker : EnemyBody
             return;
         }
     }
-    /* void DestroyObj() {
-        GameObject expl = Instantiate(explosion, transform.position, Quaternion.identity) as GameObject;
-        Destroy(gameObject); // destroy the berserker
-        Destroy(expl, 2); // delete the explosion after 3 seconds
-
-    } */
 }
