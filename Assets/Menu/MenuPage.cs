@@ -40,7 +40,7 @@ public class MenuPage : MonoBehaviour
 
     public virtual void Back()
     {
-        Debug.Log("Menu Page - Back()");
+        Debug.Log("Menu Page - Back() " + gameObject.name);
         if (previousPage)
         {
             previousPage.SetActive(true);
@@ -63,4 +63,9 @@ public class MenuPage : MonoBehaviour
     public virtual void HandleSelection(Transform selection) {
 
     }
+
+    public virtual void GoToMainPage() {
+
+    }
+
 }
