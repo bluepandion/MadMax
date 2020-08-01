@@ -5,7 +5,6 @@ using TMPro;
 using UnityEngine.SceneManagement;
 public class MenuPageLevel : MenuPage
 {
-    public GameObject mainPage;
     public GameObject mapPage;
     public LevelList levelList;
     // Start is called before the first frame update
@@ -19,12 +18,6 @@ public class MenuPageLevel : MenuPage
     {
         
     }
-
-    public void GoToLevelPage() {
-        Enter();
-        mainPage.SetActive(false);
-        gameObject.SetActive(true);
-    }
     
     public void GoToMapPage(int num) {
         Enter();
@@ -32,5 +25,10 @@ public class MenuPageLevel : MenuPage
         gameObject.SetActive(false);
         mapPage.SetActive(true);
         SceneManager.LoadScene(levelList.levels[num - 1], LoadSceneMode.Single);
+    }
+
+    public void Scroll(float value)
+    {
+        Debug.Log("Scrolled " + value.ToString());
     }
 }
