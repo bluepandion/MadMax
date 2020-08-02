@@ -40,7 +40,6 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision c)//Collider other)
     {
-        Debug.Log("Bullet collided");
         //GameObject g = other.gameObject;
         Kill();
     }
@@ -48,6 +47,5 @@ public class Bullet : MonoBehaviour
     public void Kill()
     {
         Destroy(gameObject);
-        Debug.Log("Destroy bullet");
     }
 }

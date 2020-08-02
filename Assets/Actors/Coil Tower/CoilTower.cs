@@ -4,28 +4,24 @@ using UnityEngine;
 
 public class CoilTower : EnemyBody
 {
-    // Start is called before the first frame update
-    
     public GameObject flash;
     private Vector3 spawnLocation;
     private bool playerEnter = false;
     private bool striked = true;
     private int layerMask = (1 << 9);
     private Transform playerTransform;
+
     void Start()
     {
-        
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
     }
 
-    private void PlayerEnter(Collider other)
+    private void PlayerEnter(GameObject other)
     {
-        if (other.gameObject.GetComponent<CarCharacterController>())
+        if (other.tag == "Player")
         {
             Debug.Log("CoilTower detected player");
             playerTransform = other.transform;
@@ -54,9 +50,8 @@ public class CoilTower : EnemyBody
                     spawnLocation = new Vector3(randomX, groundY, randomZ);
 
                     FlashHandler();
-                }    
+                }
             }
-
             playerEnter = true;
         }
     }
@@ -70,10 +65,10 @@ public class CoilTower : EnemyBody
         }
     }
 
-    public override void HandleDetection (Collider other, Transform currentTransform)
+    public override void HandleDetection (GameObject other, GameObject detector)
     {
         Debug.Log("Coil : EnemyBody :: HandleDetection()");
-        if (other.gameObject.tag == "Player")
+        if (other.tag == "Player")
         {
             Debug.Log("Coil detected player");
             PlayerEnter(other);
@@ -88,5 +83,5 @@ public class CoilTower : EnemyBody
         }
     }
 
-    
+
 }

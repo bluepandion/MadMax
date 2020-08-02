@@ -5,38 +5,44 @@ using UnityEngine;
 public class DetectorCollider : MonoBehaviour
 {
     private EnemyBody enemyBody;
-    // Start is called before the first frame update
+    private GameObject target;
+
     void Start()
     {
-        if (transform.parent) 
-        {            
-            transform.parent.gameObject.TryGetComponent(out enemyBody);             
-        }       
+        if (transform.parent)
+        {
+            transform.parent.gameObject.TryGetComponent(out enemyBody);
+        }
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
     }
 
-    private void OnTriggerEnter(Collider other) 
+    private void OnTriggerEnter(Collider other)
     {
-        if (enemyBody)
+        if (!target)
         {
-            Debug.Log("Detector on enter");
-            enemyBody.HandleDetection(other, transform);
-        }        
+            target = other.gameObject;
+            if (enemyBody)
+            {
+                Debug.Log("Detector on enter");
+                enemyBody.HandleDetection(target, gameObject);
+            }
+        }
     }
 
-    private void OnTriggerExit(Collider other) 
+    private void OnTriggerExit(Collider other)
     {
         if (enemyBody)
         {
             Debug.Log("Detector on exit");
-            enemyBody.HandleExitDetection(other, transform);
-        }        
+            enemyBody.HandleExitDetection(target, gameObject);
+        }
+        if (other.gameObject == target)
+        {
+            target = null;
+        }
+
     }
-
-
 }

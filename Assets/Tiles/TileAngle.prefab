@@ -284,6 +284,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44c894e3fd3a09045a7476360781838d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  raycastPos: {x: 0, y: 3, z: 0}
   skin: {fileID: 0}
 --- !u!33 &7340739771863893380
 MeshFilter:

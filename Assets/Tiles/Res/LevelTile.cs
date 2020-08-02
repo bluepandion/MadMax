@@ -5,7 +5,7 @@ using UnityEngine;
 public class LevelTile : MonoBehaviour
 {
     private const int LAYER_LEVEL = (1 << 9);
-    private Vector3 raycastPos =  new Vector3(0f, 2f, 0f);
+    public Vector3 raycastPos =  new Vector3(0f, 2f, 0f);
 
     private GameObject trimN = null;
     private GameObject trimE = null;
@@ -53,7 +53,7 @@ public class LevelTile : MonoBehaviour
 
     public void Init()
     {
-        Debug.Log("LevelTile :: Init()");
+        //Debug.Log("LevelTile :: Init()");
         Transform t;
         t = transform.Find("N");
         if (t) { trimN = t.gameObject; }
@@ -71,7 +71,7 @@ public class LevelTile : MonoBehaviour
     {
         if (skin == previousSkin) { return; }
         previousSkin = skin;
-        Debug.Log("LevelTile :: ValidateSkin()");
+        //Debug.Log("LevelTile :: ValidateSkin()");
         if (skin)
         {
             //Debug.Log(skin.object.name);
@@ -82,7 +82,7 @@ public class LevelTile : MonoBehaviour
             MeshRenderer r = gameObject.GetComponent<MeshRenderer>();
             r.material = skin.terrainMaterial;
         } else {
-            Debug.Log("Clear skin");
+            //Debug.Log("Clear skin");
             ClearSkin();
         }
     }

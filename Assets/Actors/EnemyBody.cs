@@ -4,36 +4,50 @@ using UnityEngine;
 
 public class EnemyBody : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public int health;
     public GameObject explosion;
-    
+    private bool selfDestruct = false;
+
     void Start()
     {
-        
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
     }
-    public void SelfDestruct (float time) {
-        GameObject expl = Instantiate(explosion, transform.position, Quaternion.identity) as GameObject;
 
-        Destroy(expl, 2);
-        if (transform.parent) {
-            Destroy(transform.parent.gameObject, time);
+    public void SelfDestruct (float time) {
+        if (!selfDestruct)
+        {
+            selfDestruct = true;
+            GameObject expl = Instantiate(explosion, transform.position, Quaternion.identity) as GameObject;
+            Destroy(expl, 2);
+            if (transform.parent) {
+                Destroy(transform.parent.gameObject, time);
+            }
+            else if (gameObject) {
+                Destroy(gameObject, time);
+            }
         }
-        else if (gameObject) {
-            Destroy(gameObject, time);
+    }
+
+    public virtual void Damage(int damage)
+    {
+        health -= damage;
+        if (health < 0)
+        {
+            health = 0;
         }
     }
-    public virtual void HandleDetection (Collider other, Transform currentTransform)
+
+    public virtual void HandleDetection (GameObject other, GameObject detector)
     {
-        Debug.Log("EnemyBody :: HandleDetection()");        
+        //Debug.Log("EnemyBody :: HandleDetection()");
     }
-    public virtual void HandleExitDetection (Collider other, Transform currentTransform)
+
+    public virtual void HandleExitDetection (GameObject other, GameObject detector)
     {
-        Debug.Log("EnemyBody :: HandleExitDetection()");        
+        //Debug.Log("EnemyBody :: HandleExitDetection()");
     }
+
 }

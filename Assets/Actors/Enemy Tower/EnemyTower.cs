@@ -25,16 +25,16 @@ public class EnemyTower : EnemyBody
         if (playerTransform) {
             towerGun.transform.LookAt(playerTransform.position);
         }
-        
+
         if (playerEnter) {
             Shoot();
         }
     }
 
-    public override void HandleExitDetection (Collider other, Transform currentTransform)
+    public override void HandleExitDetection (GameObject other, GameObject detector)
     {
         Debug.Log("Exit detected");
-        if (other.gameObject.GetComponent<CarCharacterController>())
+        if (other.GetComponent<CarCharacterController>())
         {
             Debug.Log("Player on exit tower");
             playerEnter = false;
@@ -51,10 +51,10 @@ public class EnemyTower : EnemyBody
         }
     }
 
-    public override void HandleDetection (Collider other, Transform currentTransform)
+    public override void HandleDetection (GameObject other, GameObject detector)
     {
         Debug.Log("Tower : EnemyBody :: HandleDetection()");
-        if (other.gameObject.tag == "Player")
+        if (other.tag == "Player")
         {
             Debug.Log("Tower detected player");
             playerEnter = true;
