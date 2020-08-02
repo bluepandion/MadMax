@@ -101,6 +101,7 @@ public class Player : MonoBehaviour
             {
                 Pickup p = zone.GetComponent<Pickup>();
                 p.Pick();
+                GameState.Instance.player.AddScore(100);
             }
         }
     }

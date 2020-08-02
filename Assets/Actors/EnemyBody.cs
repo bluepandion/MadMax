@@ -22,10 +22,8 @@ public class EnemyBody : MonoBehaviour
             selfDestruct = true;
             GameObject expl = Instantiate(explosion, transform.position, Quaternion.identity) as GameObject;
             Destroy(expl, 2);
-            if (transform.parent) {
-                Destroy(transform.parent.gameObject, time);
-            }
-            else if (gameObject) {
+            if (gameObject)
+            {
                 Destroy(gameObject, time);
             }
         }
