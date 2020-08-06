@@ -6,7 +6,8 @@ using System.Collections.Generic;
  public class GameState : MonoBehaviour
  {
      private static GameState instance = null;
-     public PlayerState player = new PlayerState();
+    public PlayerState player = new PlayerState();
+    public int totalStar = 0;
 
      // Game Instance Singleton
      public static GameState Instance
@@ -53,6 +54,11 @@ using System.Collections.Generic;
          public void AddScore(int s)
          {
              score += s;
+         }
+
+         public void AddStars(int a)
+         {
+             stars += a;
          }
 
          public void ResetLevelState()

@@ -102,6 +102,11 @@ public class Player : MonoBehaviour
                 Pickup p = zone.GetComponent<Pickup>();
                 p.Pick();
                 GameState.Instance.player.AddScore(100);
+                GameState.Instance.player.AddStars(1);
+
+                if (GameState.Instance.player.stars == GameState.Instance.totalStar) {
+                    Change(new Player.StateWin(o));
+                }
             }
         }
     }
@@ -167,6 +172,29 @@ public class Player : MonoBehaviour
         public override void Exit()
         {
             Debug.Log("Player state Paused - Exit");
+            Time.timeScale = 1f;
+        }
+    }
+
+    public class StateWin : PlayerState
+    {
+        public StateWin (Player owner) : base (owner) {}
+
+        public override void Enter()
+        {
+            Debug.Log("Player state Win");
+            Time.timeScale = 0f;
+            o.menu.ShowPage("Page Win");
+        }
+
+        public override void Update()
+        {
+            
+        }
+
+        public override void Exit()
+        {
+            Debug.Log("Player state win  - Exit");
             Time.timeScale = 1f;
         }
     }
