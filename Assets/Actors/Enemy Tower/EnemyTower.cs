@@ -13,21 +13,34 @@ public class EnemyTower : EnemyBody
     private float speed = 0.05f;
 
     private PlayerGun gunComponent;
+    private StateMachine sm;
     // Start is called before the first frame update
     void Start()
     {
         gunComponent = towerGun.GetComponent<PlayerGun>();
+        sm = new StateMachine();
+        sm.SetState(new StateIdle(this));
     }
 
     // Update is called once per frame
     void Update()
     {
+        sm.Update();
         if (playerTransform) {
             towerGun.transform.LookAt(playerTransform.position);
         }
 
         if (playerEnter) {
             Shoot();
+        }
+    }
+
+    public void CheckHealth()
+    {
+        if (health < 1)
+        {
+            Debug.Log("EnemyTower died");
+            sm.SetState(new StateDestroying(this));
         }
     }
 
@@ -75,6 +88,69 @@ public class EnemyTower : EnemyBody
             //Debug.Log("Tower shooting: " + gunComponent);
             gunComponent.Shoot(rot);
 
+        }
+    }
+
+    public class StateIdle : IState
+    {
+        private EnemyTower owner;
+
+        public StateIdle (EnemyTower o) { owner = o; }
+
+        void IState.Enter()
+        {
+            Debug.Log("EnemyTower enter state idle");
+        }
+        void IState.Update()
+        {
+            if (owner.playerEnter)
+            {
+                owner.sm.SetState(new StateShooting(owner));
+            }
+            owner.CheckHealth();
+        }
+        void IState.Exit() {}
+    }
+
+    public class StateShooting : IState
+    {
+        private EnemyTower owner;
+
+        public StateShooting (EnemyTower o) { owner = o; }
+
+        void IState.Enter()
+        {
+            Debug.Log("EnemyTower enter state shooting");
+        }
+
+        void IState.Update()
+        {
+            owner.CheckHealth();
+        }
+
+        void IState.Exit()
+        {
+        }
+    }
+
+    public class StateDestroying : IState
+    {
+        private EnemyTower owner;
+
+        public StateDestroying (EnemyTower o) { owner = o; }
+
+        void IState.Enter()
+        {
+            Debug.Log("EnemyTower enter state destroying");
+            owner.SelfDestruct(0f);
+        }
+
+        void IState.Update()
+        {
+        }
+
+        void IState.Exit()
+        {
         }
     }
 }

@@ -10146,6 +10146,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy Tower
       objectReference: {fileID: 0}
+    - target: {fileID: 7086658666851670085, guid: 5081d207c163d3e499e6716b8e2c9682,
+        type: 3}
+      propertyPath: health
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5081d207c163d3e499e6716b8e2c9682, type: 3}
 --- !u!1001 &417639812
