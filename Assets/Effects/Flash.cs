@@ -7,9 +7,11 @@ public class Flash : MonoBehaviour
     // Start is called before the first frame update
     private int layerMask = ~(1 << 9);
     public GameObject thunder;
+
+
     void Start()
     {
-        
+             
     }
 
     // Update is called once per frame
@@ -18,12 +20,15 @@ public class Flash : MonoBehaviour
         
     }
 
+    
+
     private void OnDestroy() {
         ThunderHandler();       
     }
 
-    void ThunderHandler() {
+    public void ThunderHandler() {
         GameObject currentFlash = Instantiate(thunder, transform.position , Quaternion.identity);
         Destroy(currentFlash, 1);            
     }
+    
 }

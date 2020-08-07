@@ -40446,6 +40446,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1140068357465370418, guid: 3c8b5df038fafa64c8192a5ea8bc8776,
+        type: 3}
+      propertyPath: health
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1140068357465370418, guid: 3c8b5df038fafa64c8192a5ea8bc8776,
+        type: 3}
+      propertyPath: flashDelay
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1140068357465370418, guid: 3c8b5df038fafa64c8192a5ea8bc8776,
+        type: 3}
+      propertyPath: strikeDelay
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6292329915908305750, guid: 3c8b5df038fafa64c8192a5ea8bc8776,
         type: 3}
       propertyPath: m_Name
