@@ -88,9 +88,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5809739862372434610}
   - component: {fileID: 3395387409791952063}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Thunder
-  m_TagString: Untagged
+  m_TagString: Enemy-Thunder
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

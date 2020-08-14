@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CarCharacterController : MonoBehaviour
+public class CarCharacterController : EnemyBody
 {
     public float acceleration = 8.0f;
     public float maxSpeed = 40.0f;
@@ -15,7 +15,7 @@ public class CarCharacterController : MonoBehaviour
     public float gravity = 9.81f;
 
     public float springDamper = 2.0f;
-
+    
     public Transform gun;
     private PlayerGun gunComponent;
 

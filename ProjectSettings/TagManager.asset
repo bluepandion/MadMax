@@ -15,6 +15,7 @@ TagManager:
   - Berserker
   - Player-Bullet
   - Star
+  - Enemy-Thunder
   layers:
   - Default
   - TransparentFX
@@ -33,7 +34,7 @@ TagManager:
   - Pickup
   - Detector
   - Player-Bullet
-  - 
+  - Enemy Thunder
   - 
   - 
   - 

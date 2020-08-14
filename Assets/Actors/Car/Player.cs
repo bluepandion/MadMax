@@ -108,6 +108,10 @@ public class Player : MonoBehaviour
                     Change(new Player.StateWin(o));
                 }
             }
+
+            if (zone.tag == "Enemy-Bullet") {
+                Change(new Player.StateDead(o));
+            }
         }
     }
 
@@ -138,10 +142,24 @@ public class Player : MonoBehaviour
     {
         public StateDead (Player owner) : base (owner) {}
 
+        private float time = 0f;
+        private const float EXPLODE_DURATION = 2.0f;
+
         public override void Enter()
         {
             Debug.Log("Player state Dead");
-            o.menu.ShowPage("Page Dead");
+            o.car.SelfDestruct(EXPLODE_DURATION - 1f);
+        }
+
+        public override void Update()
+        {
+            time += Time.deltaTime;
+            if (time > EXPLODE_DURATION)
+            {
+                if (o.car == null) {
+                o.menu.ShowPage("Page Dead");
+                }
+            }
         }
     }
 
