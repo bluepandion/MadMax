@@ -16,6 +16,7 @@ TagManager:
   - Player-Bullet
   - Star
   - Enemy-Thunder
+  - Pickup
   layers:
   - Default
   - TransparentFX

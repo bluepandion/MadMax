@@ -15,14 +15,14 @@ public class CarCharacterController : EnemyBody
     public float gravity = 9.81f;
 
     public float springDamper = 2.0f;
-    
+
     public Transform gun;
     private PlayerGun gunComponent;
 
     public UnityEngine.UI.Text debugText;
     public GameObject menu;
 
-    private int layerMask = ~(1 << 8);
+    private int layerMask = (1 << 9);
 
     private CharacterController cc;
 
@@ -154,15 +154,20 @@ public class CarCharacterController : EnemyBody
 
     void OnTriggerEnter(Collider hit)
     {
-        Transform o = hit.transform;
         Player p = transform.parent.GetComponent<Player>();
         if (p)
         {
-            p.state.EnterZone(o);
+            p.TriggerEnter(hit.gameObject);
         }
-        //if (o.GetComponent("Lava")) {
-        //    Debug.Log("Player hit lava");
-        //}
+    }
+
+    void OnCollisionEnter(Collision hit)
+    {
+
+    }
+
+    void OnControllerColliderHit (ControllerColliderHit hit)
+    {
 
     }
 

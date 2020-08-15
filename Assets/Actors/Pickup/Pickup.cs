@@ -6,6 +6,7 @@ public class Pickup : MonoBehaviour
 {
     private float rotationSpeed = 360.0f;
 
+    public string name;
     public Transform model;
     private Vector3 modelPosition;
 
@@ -88,7 +89,7 @@ public class Pickup : MonoBehaviour
         public StateDisappearing (Pickup o) { owner = o; }
 
         private const float DISAPPEAR_DURATION = 1.0f;
-        private const float DISAPPEAR_JUMP = 5.0f;
+        private const float DISAPPEAR_JUMP = 300.0f;
         private float disappear = 0f;
 
         void IState.Enter()
@@ -100,7 +101,7 @@ public class Pickup : MonoBehaviour
         {
             owner.transform.localPosition += new Vector3(
                 0f,
-                disappear * DISAPPEAR_JUMP,
+                disappear * (DISAPPEAR_JUMP * Time.deltaTime),
                 0f
             );
 

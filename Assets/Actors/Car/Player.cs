@@ -7,212 +7,197 @@ public class Player : MonoBehaviour
 {
     public MenuContainer menu;
     public CarCharacterController car;
-    public PlayerState state;
+    private StateMachine sm = new StateMachine();
 
+    private bool colliding = true;
 
     void Start()
     {
         car = car.GetComponent<CarCharacterController>();
-        state = new StateDriving(this);
+        sm.SetState(new StateDriving(this));
     }
 
     void Update()
     {
-        if (state != null)
+        sm.Update();
+    }
+
+    public void TriggerEnter(GameObject other)
+    {
+        if (!colliding) { return; }
+
+        if (other.tag == "Lava")
         {
-            state.Update();
+            sm.SetState(new StateMelting(this));
+        }
+        if (other.tag == "Pickup")
+        {
+            Pickup p = other.GetComponent<Pickup>();
+            p.Pick();
+            if (p.name == "Star")
+            {
+                GameState.Instance.player.AddScore(100);
+                GameState.Instance.player.AddStars(1);
+                if (GameState.Instance.player.stars == GameState.Instance.totalStar)
+                {
+                    sm.SetState(new StateWin(this));
+                }
+            }
+        }
+        if (other.tag == "Enemy-Bullet") {
+            sm.SetState(new StateDead(this));
         }
     }
 
-    public class PlayerState
+    public void CollisionEnter(GameObject other)
     {
-        protected Player o;
-        protected String name = "";
-        protected PlayerState previous;
 
-        public PlayerState(Player owner)
-        {
-            previous = owner.state;
-            o = owner;
-        }
+    }
 
-        public virtual void Enter() {}
+    public class StateIdle : IState
+    {
+        private Player owner;
 
-        public virtual void Update() {}
+        public StateIdle (Player o) { owner = o; }
 
-        public virtual void Exit() {}
-
-        public void Return()
-        {
-            Exit();
-            o.state = previous;
-            previous.Enter();
-        }
-
-        public void Change(PlayerState to)
-        {
-            Exit();
-            o.state = to;
-            o.state.Enter();
-        }
-
-        public virtual void EnterZone(Transform zone)
+        void IState.Enter()
         {
         }
-
-        public virtual void ExitZone(Transform zone)
+        void IState.Update()
+        {
+        }
+        void IState.Exit()
         {
         }
     }
 
-    public class StateDriving : PlayerState
+    public class StateDriving : IState
     {
-        public StateDriving (Player owner) : base (owner) {}
+        private Player owner;
 
-        public override void Enter()
+        public StateDriving (Player o) { owner = o; }
+
+        void IState.Enter()
         {
-            Debug.Log("Player state Driving");
         }
-
-        public override void Update()
+        void IState.Update()
         {
             if (Input.GetButtonDown("Fire1"))
             {
-                o.car.Shoot();
+                owner.car.Shoot();
             }
 
-            o.car.HandlePhysics(
+            owner.car.HandlePhysics(
                 Input.GetAxis("Horizontal"),
                 Input.GetAxis("Vertical"));
 
             if (Input.GetButtonDown("Cancel"))
             {
-                Change(new Player.StatePaused(o));
+                owner.sm.SetState(new StatePaused(owner));
             }
         }
-
-        public override void EnterZone(Transform zone) {
-            if (zone.GetComponent("Lava"))
-            {
-                Change(new Player.StateMelting(o));
-            }
-
-            if (zone.GetComponent("Pickup"))
-            {
-                Pickup p = zone.GetComponent<Pickup>();
-                p.Pick();
-                GameState.Instance.player.AddScore(100);
-                GameState.Instance.player.AddStars(1);
-
-                if (GameState.Instance.player.stars == GameState.Instance.totalStar) {
-                    Change(new Player.StateWin(o));
-                }
-            }
-
-            if (zone.tag == "Enemy-Bullet") {
-                Change(new Player.StateDead(o));
-            }
+        void IState.Exit()
+        {
         }
     }
 
-    public class StateMelting : PlayerState
+    public class StateMelting : IState
     {
+        private Player owner;
         private float time = 0f;
         private const float MELT_DURATION = 1.0f;
 
-        public StateMelting (Player owner) : base (owner) {}
+        public StateMelting (Player o) { owner = o; }
 
-        public override void Enter()
+        void IState.Enter()
         {
-            Debug.Log("Player state Melting");
         }
-
-        public override void Update()
+        void IState.Update()
         {
-            o.car.Melt();
+            owner.car.Melt();
             time += Time.deltaTime;
             if (time > MELT_DURATION)
             {
-                Change(new Player.StateDead(o));
+                owner.sm.SetState(new StateDead(owner));
             }
+        }
+        void IState.Exit()
+        {
         }
     }
 
-    public class StateDead : PlayerState
+    public class StateDead : IState
     {
-        public StateDead (Player owner) : base (owner) {}
-
+        private Player owner;
         private float time = 0f;
         private const float EXPLODE_DURATION = 2.0f;
 
-        public override void Enter()
-        {
-            Debug.Log("Player state Dead");
-            o.car.SelfDestruct(EXPLODE_DURATION - 1f);
-        }
+        public StateDead (Player o) { owner = o; }
 
-        public override void Update()
+        void IState.Enter()
+        {
+            owner.car.SelfDestruct(EXPLODE_DURATION - 1f);
+        }
+        void IState.Update()
         {
             time += Time.deltaTime;
             if (time > EXPLODE_DURATION)
             {
-                if (o.car == null) {
-                o.menu.ShowPage("Page Dead");
+                if (owner.car == null) {
+                owner.menu.ShowPage("Page Dead");
                 }
             }
         }
+        void IState.Exit()
+        {
+        }
     }
 
-    public class StatePaused : PlayerState
+    public class StatePaused : IState
     {
-        public StatePaused (Player owner) : base (owner) {}
+        private Player owner;
 
-        public override void Enter()
+        public StatePaused (Player o) { owner = o; }
+
+        void IState.Enter()
         {
-            Debug.Log("Player state Paused");
             Time.timeScale = 0f;
-            o.menu.ShowPage("Page Pause");
+            owner.menu.ShowPage("Page Pause");
         }
-
-        public override void Update()
+        void IState.Update()
         {
             if (Input.GetButtonDown("Cancel"))
             {
-                o.menu.Hide();
-                Return();
+                owner.menu.Hide();
+                owner.sm.SetState(new StateDriving(owner));
             }
-            if (!o.menu.gameObject.activeInHierarchy)
+            if (!owner.menu.gameObject.activeInHierarchy)
             {
-                Return();
+                owner.sm.SetState(new StateDriving(owner));
             }
         }
-
-        public override void Exit()
+        void IState.Exit()
         {
-            Debug.Log("Player state Paused - Exit");
             Time.timeScale = 1f;
         }
     }
 
-    public class StateWin : PlayerState
+    public class StateWin : IState
     {
-        public StateWin (Player owner) : base (owner) {}
+        private Player owner;
 
-        public override void Enter()
+        public StateWin (Player o) { owner = o; }
+
+        void IState.Enter()
         {
-            Debug.Log("Player state Win");
             Time.timeScale = 0f;
-            o.menu.ShowPage("Page Win");
+            owner.menu.ShowPage("Page Win");
         }
-
-        public override void Update()
+        void IState.Update()
         {
-            
         }
-
-        public override void Exit()
+        void IState.Exit()
         {
-            Debug.Log("Player state win  - Exit");
             Time.timeScale = 1f;
         }
     }
